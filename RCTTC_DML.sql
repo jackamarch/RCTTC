@@ -26,8 +26,6 @@ inner join customer c on c.customer_email = r.customer_email;
 -- 			The actual price is $22.25 because of a visiting celebrity actor. (Customers were notified.)
 -- 			Update the ticket price for that performance only.
 
--- 		Update Jammie Swindles's phone number from "801-514-8648" to "1-801-EAT-CAKE".
-
 set sql_safe_updates = 0;
 update showing set
 	showing_price = '22.25'
@@ -59,17 +57,27 @@ update ticket set
 where ticket_id = 101;
 set sql_safe_updates = 1;
 
+-- 		Update Jammie Swindles's phone number from "801-514-8648" to "1-801-EAT-CAKE".
+
+set sql_safe_updates = 0;
+update customer set
+	customer_phone = '1-801-EAT-CAKE'
+where first_name = 'Jammie' and last_name = 'Swindles';
+set sql_safe_updates = 1;
+
 
 -- DELETE
 -- 		Delete all single-ticket reservations at the 10 Pin. (You don't have to do it with one query.)
+
+-- delete t, c, s, r from ticket t
+-- inner join customer c on t.customer_id = t.ticket_id
+-- inner join showing s on s.showing_id = t.showing_id
+-- inner join theater r on r.theater_id = s.showing_id
+-- group by c.customer_id
+-- where count(ticket_id) = 1;
+
 -- 		Delete the customer Liv Egle of Germany. It appears their reservations were an elaborate joke.
 
-
-
--- update 
-
--- select distinct d.`seat`, s.showing_id, c.customer_id
--- from `rcttc_data` d
--- inner join showing s on s.showing_date = d.`date`
--- inner join customer c on c.customer_email = d.customer_email;
+delete customer from customer
+where first_name = 'Liv' and last_name = 'Egle of Germany';
 

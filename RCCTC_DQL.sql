@@ -5,10 +5,13 @@ select * from theater;
 select * from showing;
 select * from ticket;
 
-select * from ticket t
+select c.*, count(c.customer_id) ticket_count from ticket t
 inner join customer c on c.customer_id = t.customer_id
-inner join showing s on s.showing_id = t.showing_id;
-
+inner join showing s on s.showing_id = t.showing_id
+inner join theater r on r.theater_id = s.theater_id
+where r.theater_id = 1
+group by c.customer_id
+having ticket_count = 1;
 
 
 -- #1.) Find all performances in the last quarter of 2021 (Oct. 1, 2021 - Dec. 31 2021).
