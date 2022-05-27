@@ -20,13 +20,13 @@ theater_phone varchar(20) not null,
 theater_email varchar(255) not null
 );
 
-create table production (
-production_id int primary key auto_increment,
-production_name varchar(50) not null,
-production_date date not null,
-price decimal(8, 2) not null,
+create table showing (
+showing_id int primary key auto_increment,
+showing_name varchar(50) not null,
+showing_date date not null,
+showing_price decimal(8, 2) not null,
 theater_id int not null,
-constraint fk_production_theater
+constraint fk_showing_theater
 	foreign key (theater_id)
     references theater(theater_id)
 );
@@ -34,17 +34,15 @@ constraint fk_production_theater
 create table ticket (
 ticket_id int primary key auto_increment,
 seat varchar(2) not null,
-production_id int not null,
+showing_id int not null,
 customer_id int not null,
-constraint fk_ticket_production
-		foreign key (production_id)
-        references production(production_id),
+constraint fk_ticket_showing
+		foreign key (showing_id)
+        references showing(showing_id),
 constraint fk_ticket_customer
 	foreign key (customer_id)
     references customer(customer_id)
 );
-
-
 
 
 create table `rcttc_data` (
@@ -62,9 +60,6 @@ create table `rcttc_data` (
   `theater_phone` text,
   `theater_email` text
 );
-
-
-
 
 insert into `rcttc_data` 
 	values 
