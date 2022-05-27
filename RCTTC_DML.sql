@@ -21,6 +21,52 @@ inner join showing s on s.showing_name = r.show and s.showing_date = r.`date` an
 inner join customer c on c.customer_email = r.customer_email;
 
 
+-- UPDATE
+-- 		The Little Fitz's 2021-03-01 performance of The Sky Lit Up is listed with a $20 ticket price. 
+-- 			The actual price is $22.25 because of a visiting celebrity actor. (Customers were notified.)
+-- 			Update the ticket price for that performance only.
+
+-- 		Update Jammie Swindles's phone number from "801-514-8648" to "1-801-EAT-CAKE".
+
+set sql_safe_updates = 0;
+update showing set
+	showing_price = '22.25'
+where showing_name = 'The Sky Lit Up' and showing_date = '2021-03-01';
+set sql_safe_updates = 1;
+
+select * from showing
+where showing_name = 'The Sky Lit Up' and showing_date = '2021-03-01';
+
+-- 		In the Little Fitz's 2021-03-01 performance of The Sky Lit Up, Pooh Bedburrow and Cullen Guirau seat reservations aren't in the same row.
+-- 			Adjust seating so all groups are seated together in a row. This may require updates to all reservations for that performance.
+-- 			Confirm that no seat is double-booked and that everyone who has a ticket is as close to their original seat as possible.
+
+set sql_safe_updates = 0;
+update ticket set
+	seat = 'B4'
+where ticket_id = 98;
+set sql_safe_updates = 1;
+
+set sql_safe_updates = 0;
+update ticket set
+	seat = 'C2'
+where ticket_id = 100;
+set sql_safe_updates = 1;
+
+set sql_safe_updates = 0;
+update ticket set
+	seat = 'A4'
+where ticket_id = 101;
+set sql_safe_updates = 1;
+
+
+-- DELETE
+-- 		Delete all single-ticket reservations at the 10 Pin. (You don't have to do it with one query.)
+-- 		Delete the customer Liv Egle of Germany. It appears their reservations were an elaborate joke.
+
+
+
+-- update 
 
 -- select distinct d.`seat`, s.showing_id, c.customer_id
 -- from `rcttc_data` d
