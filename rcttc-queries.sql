@@ -101,7 +101,9 @@ use rcttc;
 -- select c.customer_id, c.first_name, c.last_name, sum(s.showing_price) as total_spent from customer c
 -- inner join ticket t on t.customer_id = c.customer_id
 -- inner join showing s on t.showing_id = s.showing_id
--- group by customer_id;
+-- group by customer_id
+-- order by total_spent desc
+-- limit 1;
 
 -- ===========================================================================================================
 
