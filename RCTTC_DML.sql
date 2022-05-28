@@ -69,15 +69,32 @@ set sql_safe_updates = 1;
 -- DELETE
 -- 		Delete all single-ticket reservations at the 10 Pin. (You don't have to do it with one query.)
 
--- delete t, c, s, r from ticket t
--- inner join customer c on t.customer_id = t.ticket_id
--- inner join showing s on s.showing_id = t.showing_id
--- inner join theater r on r.theater_id = s.showing_id
--- group by c.customer_id
--- where count(ticket_id) = 1;
+select c.*, count(c.customer_id) ticket_count from ticket t
+inner join customer c on c.customer_id = t.customer_id
+inner join showing s on s.showing_id = t.showing_id
+inner join theater r on r.theater_id = s.theater_id
+where r.theater_id = 1
+group by c.customer_id
+having ticket_count = 1;
+
+delete ticket from ticket
+where customer_id in (7, 8, 10, 15, 18, 19, 22, 25, 26);
 
 -- 		Delete the customer Liv Egle of Germany. It appears their reservations were an elaborate joke.
 
-delete customer from customer
-where first_name = 'Liv' and last_name = 'Egle of Germany';
+select * from customer c
+inner join ticket t on t.customer_id = c.customer_id
+inner join showing s on s.showing_id = t.showing_id
+inner join theater r on r.theater_id = s.theater_id
+where c.first_name = 'Liv';
+
+delete ticket from ticket where customer_id = 65;
+delete customer from customer where customer_id = 65;
+-- inner join ticket t on t.customer_id = c.customer_id
+-- inner join showing s on s.showing_id = t.showing_id
+-- inner join theater r on r.theater_id = s.showing_id
+
+
+
+
 
