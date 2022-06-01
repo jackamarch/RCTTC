@@ -81,9 +81,9 @@ use rcttc;
 
 -- #10.) Calculate the total revenue per show based on tickets sold.
 
--- select s.showing_name, s.showing_price * count(ticket_id) as revenue from showing s
+-- select s.showing_name, sum(s.showing_price) as revenue from showing s
 -- inner join ticket t on t.showing_id = s.showing_id
--- group by s.showing_id;
+-- group by s.showing_name;
 
 -- ===========================================================================================================
 
@@ -101,7 +101,9 @@ use rcttc;
 -- select c.customer_id, c.first_name, c.last_name, sum(s.showing_price) as total_spent from customer c
 -- inner join ticket t on t.customer_id = c.customer_id
 -- inner join showing s on t.showing_id = s.showing_id
--- group by customer_id;
+-- group by customer_id
+-- order by total_spent desc
+-- limit 1;
 
 -- ===========================================================================================================
 
